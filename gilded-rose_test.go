@@ -9,11 +9,9 @@ var _ = Describe("Gilded Rose", func() {
 	var (
 		name    string
 		quality int
-		sellIn  = 10
-		item    = &Item{}
-		items   = []*Item{
-			item,
-		}
+		sellIn  int
+		item    *Item
+		items   []*Item
 	)
 
 	JustBeforeEach(func() {
@@ -21,12 +19,13 @@ var _ = Describe("Gilded Rose", func() {
 		items = []*Item{
 			item,
 		}
-		UpdateQuality(items)
+		UpdateItems(items)
 	})
 
 	Context("when the item is not special", func() {
 		BeforeEach(func() {
 			name = "foo"
+			sellIn = 10
 		})
 
 		Context("when quality is above 0", func() {
