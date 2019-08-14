@@ -48,26 +48,22 @@ func updateAgedBrie(item *Item) {
 }
 
 func updateBackstagePassesQuality(item *Item) {
-	if item.sellIn < 0 {
+	switch {
+
+	case item.sellIn < 0:
 		item.quality = 0
-		return
-	}
 
-	if item.quality > 50 {
-		return
-	}
+	case item.quality > 50:
 
-	if item.sellIn <= 5 {
+	case item.sellIn <= 5:
 		item.quality += 3
-		return
-	}
 
-	if item.sellIn <= 10 {
+	case item.sellIn <= 10:
 		item.quality += 2
-		return
-	}
 
-	item.quality += 1
+	default:
+		item.quality += 1
+	}
 }
 
 func updateRegularItem(item *Item) {
