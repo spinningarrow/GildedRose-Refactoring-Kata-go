@@ -19,7 +19,9 @@ func UpdateItems(items []*Item) {
 }
 
 func updateQuality(item *Item) {
-	if item.name != AgedBrie && item.name != BackstagePasses {
+	if item.name == BackstagePasses {
+		updateBackstagePassesQuality(item)
+	} else if item.name != AgedBrie && item.name != BackstagePasses {
 		if item.quality > 0 {
 			if item.name != Sulfuras {
 				item.quality = item.quality - 1
@@ -28,18 +30,6 @@ func updateQuality(item *Item) {
 	} else {
 		if item.quality < 50 {
 			item.quality = item.quality + 1
-			if item.name == BackstagePasses {
-				if item.sellIn < 11 {
-					if item.quality < 50 {
-						item.quality = item.quality + 1
-					}
-				}
-				if item.sellIn < 6 {
-					if item.quality < 50 {
-						item.quality = item.quality + 1
-					}
-				}
-			}
 		}
 	}
 
@@ -51,8 +41,6 @@ func updateQuality(item *Item) {
 						item.quality = item.quality - 1
 					}
 				}
-			} else {
-				item.quality = item.quality - item.quality
 			}
 		} else {
 			if item.quality < 50 {
@@ -61,6 +49,26 @@ func updateQuality(item *Item) {
 		}
 	}
 
+}
+
+func updateBackstagePassesQuality(item *Item) {
+	if item.quality < 50 {
+		item.quality = item.quality + 1
+		if item.sellIn < 11 {
+			if item.quality < 50 {
+				item.quality = item.quality + 1
+			}
+		}
+		if item.sellIn < 6 {
+			if item.quality < 50 {
+				item.quality = item.quality + 1
+			}
+		}
+	}
+
+	if item.sellIn < 0 {
+		item.quality = item.quality - item.quality
+	}
 }
 
 func updateSellIn(item *Item) {
