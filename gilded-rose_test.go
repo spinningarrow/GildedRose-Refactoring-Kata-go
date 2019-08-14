@@ -6,7 +6,6 @@ import (
 )
 
 var _ = Describe("Gilded Rose", func() {
-
 	var (
 		name    string
 		quality int
@@ -68,7 +67,7 @@ var _ = Describe("Gilded Rose", func() {
 
 	Context("when the item is Aged Brie", func() {
 		BeforeEach(func() {
-			name = "Aged Brie"
+			name = AgedBrie
 			quality = 10
 			sellIn = 10
 		})
@@ -96,7 +95,7 @@ var _ = Describe("Gilded Rose", func() {
 
 	Context("when the item is legendary", func() {
 		BeforeEach(func() {
-			name = "Sulfuras, Hand of Ragnaros"
+			name = Sulfuras
 		})
 
 		It("does not lower SellIn", func() {
@@ -110,7 +109,7 @@ var _ = Describe("Gilded Rose", func() {
 
 	Context("when the item is a backstage pass", func() {
 		BeforeEach(func() {
-			name = "Backstage passes to a TAFKAL80ETC concert"
+			name = BackstagePasses
 		})
 
 		Context("when there are more than 10 days remaining", func() {
