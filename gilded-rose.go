@@ -42,19 +42,26 @@ func updateQuality(item *Item) {
 }
 
 func updateBackstagePassesQuality(item *Item) {
-	if item.quality < 50 {
-		item.quality = item.quality + 1
-		if item.sellIn < 11 && item.quality < 50 {
-			item.quality = item.quality + 1
-		}
-		if item.sellIn < 6 && item.quality < 50 {
-			item.quality = item.quality + 1
-		}
+	if item.sellIn < 0 {
+		item.quality = 0
+		return
 	}
 
-	if item.sellIn < 0 {
-		item.quality = item.quality - item.quality
+	if item.quality > 50 {
+		return
 	}
+
+	if item.sellIn <= 5 {
+		item.quality += 3
+		return
+	}
+
+	if item.sellIn <= 10 {
+		item.quality += 2
+		return
+	}
+
+	item.quality += 1
 }
 
 func updateSellIn(item *Item) {
