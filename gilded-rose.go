@@ -19,30 +19,19 @@ func UpdateItems(items []*Item) {
 }
 
 func updateQuality(item *Item) {
-	if item.name == Sulfuras {
-		return
-	}
+	switch item.name {
 
-	if item.name == BackstagePasses {
+	case Sulfuras:
+
+	case BackstagePasses:
 		updateBackstagePassesQuality(item)
-		return
-	}
 
-	if item.name == AgedBrie {
+	case AgedBrie:
 		updateAgedBrie(item)
-		return
-	}
 
-	if item.quality <= 0 {
-		return
+	default:
+		updateRegularItem(item)
 	}
-
-	if item.sellIn < 0 {
-		item.quality -= 2
-		return
-	}
-
-	item.quality = item.quality - 1
 }
 
 func updateAgedBrie(item *Item) {
@@ -79,6 +68,19 @@ func updateBackstagePassesQuality(item *Item) {
 	}
 
 	item.quality += 1
+}
+
+func updateRegularItem(item *Item) {
+	if item.quality <= 0 {
+		return
+	}
+
+	if item.sellIn < 0 {
+		item.quality -= 2
+		return
+	}
+
+	item.quality = item.quality - 1
 }
 
 func updateSellIn(item *Item) {
