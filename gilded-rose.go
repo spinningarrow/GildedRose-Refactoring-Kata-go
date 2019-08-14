@@ -28,24 +28,34 @@ func updateQuality(item *Item) {
 		return
 	}
 
-	if item.name != AgedBrie {
-		if item.quality > 0 {
-			item.quality = item.quality - 1
-		}
-	} else if item.quality < 50 {
-		item.quality = item.quality + 1
+	if item.name == AgedBrie {
+		updateAgedBrie(item)
+		return
+	}
+
+	if item.quality <= 0 {
+		return
 	}
 
 	if item.sellIn < 0 {
-		if item.name != AgedBrie {
-			if item.quality > 0 {
-				item.quality = item.quality - 1
-			}
-		} else if item.quality < 50 {
-			item.quality = item.quality + 1
-		}
+		item.quality -= 2
+		return
 	}
 
+	item.quality = item.quality - 1
+}
+
+func updateAgedBrie(item *Item) {
+	if item.quality >= 50 {
+		return
+	}
+
+	if item.sellIn < 0 {
+		item.quality += 2
+		return
+	}
+
+	item.quality += 1
 }
 
 func updateBackstagePassesQuality(item *Item) {
